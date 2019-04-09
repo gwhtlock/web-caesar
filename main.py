@@ -35,14 +35,13 @@ form =  """<form method = 'POST'>
 
         <input type ="text" name = "rot" value ="0"/>
 
-        <label for = "text">Enter text</label>
-        <input type = "text" name ="text" id = "textarea" />
+        <textarea type = "text" name ="text">{0}</textarea>
         <input type = "submit" value = "send that thing" />
     </form>"""
 
 @app.route("/")
 def index():
-    return page_header+form+page_footer
+    return page_header+form.format("")+page_footer
 
 @app.route("/", methods=['POST'])
 def encrypt():
@@ -51,7 +50,7 @@ def encrypt():
     text = request.form['text']
     new_string = rotate_string(text, rot)
     print(new_string)
-    return """<h1>{0}</h1>""".format(new_string)
+    return page_header+form.format(new_string)+page_footer
 
 
 
